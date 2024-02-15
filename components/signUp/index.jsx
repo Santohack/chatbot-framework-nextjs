@@ -18,10 +18,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import Head from "next/head"
 
 export function CardWithForm() {
   return (
+    <>
+    <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </Head>
+    
     <Card className="flex flex-col justify-center w-[450px] max-md:w-[350px]">
+       
       <CardHeader>
         <CardTitle>Sign Up</CardTitle>
         <CardDescription>Chatbot Framework</CardDescription>
@@ -63,5 +70,6 @@ export function CardWithForm() {
         <Button>Sign Up</Button>
       </CardFooter>
     </Card>
+    </>
   )
 }
