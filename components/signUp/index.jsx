@@ -21,25 +21,25 @@ import {
 
 export function CardWithForm() {
   return (
-    <Card className="w-[550px]">
+    <Card className="flex flex-col justify-center w-[450px] max-md:w-[350px]">
       <CardHeader>
         <CardTitle>Sign Up</CardTitle>
         <CardDescription>Chatbot Framework</CardDescription>
       </CardHeader>
       <CardContent>
         <form>
-          <div className="grid w-full items-center  gap-4">
+          <div className="grid w-full items-center gap-4">
             <div className="flex flex-col py-2 space-y-1.5">
               <Label htmlFor="name">Name</Label>
               <Input id="name" placeholder="Enter your name" />
             </div>
             <div className="flex flex-col py-2 space-y-1.5">
-              <Label htmlFor="name">Email</Label>
-              <Input id="name" type ="email" placeholder="Enter your email" />
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" type="email" placeholder="Enter your email" />
             </div>
             <div className="flex flex-col py-2 space-y-1.5">
-              <Label htmlFor="name">Contact</Label>
-              <Input id="name" placeholder="Enter your contact" />
+              <Label htmlFor="contact">Contact</Label>
+              <Input id="contact" placeholder="Enter your contact" />
             </div>
             {/* <div className="flex flex-col space-y-1.5">
               <Label htmlFor="framework">Framework</Label>
@@ -58,7 +58,7 @@ export function CardWithForm() {
           </div>
         </form>
       </CardContent>
-      <CardFooter className="flex justify-between">
+      <CardFooter className="flex justify-center md:justify-between">
         {/* <Button variant="outline">Cancel</Button> */}
         <Button>Sign Up</Button>
       </CardFooter>
