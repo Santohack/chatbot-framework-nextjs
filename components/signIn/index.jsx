@@ -21,7 +21,7 @@ import {
 import Head from "next/head";
 import Link from "next/link";
 
-export function SignUp() {
+export function SignIn() {
   return (
     <>
       <Head>
@@ -33,23 +33,15 @@ export function SignUp() {
 
       <Card className="flex flex-col justify-center w-[450px] max-md:w-[350px]">
         <CardHeader>
-          <CardTitle>Sign Up</CardTitle>
+          <CardTitle>Sign In</CardTitle>
           <CardDescription>Chatbot Framework</CardDescription>
         </CardHeader>
         <CardContent>
           <form>
             <div className="grid w-full items-center gap-4">
               <div className="flex flex-col py-2 space-y-1.5">
-                <Label htmlFor="name">Name</Label>
-                <Input id="name" placeholder="Enter your name" />
-              </div>
-              <div className="flex flex-col py-2 space-y-1.5">
                 <Label htmlFor="email">Email</Label>
                 <Input id="email" type="email" placeholder="Enter your email" />
-              </div>
-              <div className="flex flex-col py-2 space-y-1.5">
-                <Label htmlFor="contact">Contact</Label>
-                <Input id="contact" placeholder="Enter your contact" />
               </div>
               <div className="flex flex-col py-2 space-y-1.5">
                 <Label htmlFor="contact">Password</Label>
@@ -63,12 +55,12 @@ export function SignUp() {
           </form>
 
           <p className=" py-1 text-sm text-muted-foreground flex justify-end">
-            Already have an account?{" "}
+            Don't have an account?{" "}
             <Link
-              href="/sign-in"
-              className="underline underline-offset-4 hover:text-primary"
+              href="/sign-up"
+              className="underline underline-offset-4 hover:text-primary px-1"
             >
-              Sign In
+              Sign Up
             </Link>
           </p>
         </CardContent>

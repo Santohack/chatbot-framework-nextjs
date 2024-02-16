@@ -1,9 +1,12 @@
-import React from 'react'
+import { SignIn } from "@/components/signIn";
+import React from "react";
 
 const page = () => {
   return (
-    <div>page</div>
-  )
-}
+    <main className="flex  flex-col justify-center items-center   py-5">
+      <SignIn />
+    </main>
+  );
+};
 
-export default page
+export default page;
