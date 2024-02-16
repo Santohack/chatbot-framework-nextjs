@@ -66,7 +66,7 @@ export function SignIn() {
         </CardContent>
         <CardFooter className="flex justify-center md:justify-between">
           {/* <Button variant="outline">Cancel</Button> */}
-          <Button>Sign Up</Button>
+          <Button>Sign In</Button>
         </CardFooter>
       </Card>
     </>
