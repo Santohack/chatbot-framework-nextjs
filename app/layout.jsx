@@ -1,5 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/topbar";
 const inter = Inter({ subsets: ["latin"] });
@@ -16,6 +18,7 @@ export default function RootLayout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <body className={inter.className}>
+      <ToastContainer />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

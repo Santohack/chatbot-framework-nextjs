@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 
 import { Button } from "@/components/ui/button";
@@ -11,17 +12,36 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 export function SignIn() {
+  const router = useRouter();
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = {
+      email,
+      password,
+    };
+
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+      if (res.ok) {
+        toast.success("User logged in successfully");
+        router.push("/chatbot");
+      }
+    } catch (error) {
+      toast.error("User login failed");
+      console.log(error);
+    }
+  };
   return (
     <>
       <Head>
@@ -32,42 +52,54 @@ export function SignIn() {
       </Head>
 
       <Card className="flex flex-col justify-center w-[450px] max-md:w-[350px]">
-        <CardHeader>
-          <CardTitle>Sign In</CardTitle>
-          <CardDescription>Chatbot Framework</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form>
+        <form onSubmit={handleSubmit}>
+          <CardHeader>
+            <CardTitle>Sign In</CardTitle>
+            <CardDescription>Chatbot Framework</CardDescription>
+          </CardHeader>
+          <CardContent>
             <div className="grid w-full items-center gap-4">
               <div className="flex flex-col py-2 space-y-1.5">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="Enter your email" />
+                <Input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                />
               </div>
               <div className="flex flex-col py-2 space-y-1.5">
-                <Label htmlFor="contact">Password</Label>
+                <Label
+                  htmlFor="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                >
+                  Password
+                </Label>
                 <Input
-                  id="contact"
+                  id="password"
                   type="password"
                   placeholder="Enter your password"
                 />
               </div>
             </div>
-          </form>
 
-          <p className=" py-1 text-sm text-muted-foreground flex justify-end">
-            Don't have an account?{" "}
-            <Link
-              href="/sign-up"
-              className="underline underline-offset-4 hover:text-primary px-1"
-            >
-              Sign Up
-            </Link>
-          </p>
-        </CardContent>
-        <CardFooter className="flex justify-center md:justify-between">
-          {/* <Button variant="outline">Cancel</Button> */}
-          <Button>Sign In</Button>
-        </CardFooter>
+            <p className=" py-1 text-sm text-muted-foreground flex justify-end">
+              Don't have an account?{" "}
+              <Link
+                href="/sign-up"
+                className="underline underline-offset-4 hover:text-primary px-1"
+              >
+                Sign Up
+              </Link>
+            </p>
+          </CardContent>
+          <CardFooter className="flex justify-center md:justify-between">
+            {/* <Button variant="outline">Cancel</Button> */}
+            <Button type="submit">Sign In</Button>
+          </CardFooter>
+        </form>
       </Card>
     </>
   );
