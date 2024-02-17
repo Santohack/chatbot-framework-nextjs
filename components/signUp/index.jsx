@@ -30,7 +30,7 @@ export function SignUp() {
       email,
       password,
     };
-    console.log("clicked");
+    // console.log("clicked");
 
     try {
       const res = await fetch("/api/register", {

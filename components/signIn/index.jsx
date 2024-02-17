@@ -34,12 +34,21 @@ export function SignIn() {
         body: JSON.stringify(data),
       });
       if (res.ok) {
-        toast.success("User logged in successfully");
+        const result = await res.json();
+        const { token, message } = result;
+
+        // Set the token in localStorage
+        localStorage.setItem("token", token);
+
+        toast.success(message);
         router.push("/chatbot");
+      } else {
+        const errorResult = await res.json();
+        toast.error(errorResult.message);
       }
     } catch (error) {
-      toast.error("User login failed");
-      console.log(error);
+      console.error(error);
+      toast.error(error ||"An error occurred. Please try again later.");
     }
   };
   return (

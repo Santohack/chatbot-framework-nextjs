@@ -28,6 +28,8 @@ export const POST = async (req) => {
           process.env.JWT_SECRET,
           { expiresIn: "7d" }
         );
+
+         
         return new Response(
           JSON.stringify({ token, message: "successfully logged in" }),
           { status: 200 }
@@ -40,7 +42,8 @@ export const POST = async (req) => {
     }
   } catch (error) {
     console.error(error);
-    return new Response(JSON.stringify({ message: "internal server error" }), { status: 500 });
-    
+    return new Response(JSON.stringify({ message: "internal server error" }), {
+      status: 500,
+    });
   }
 };
