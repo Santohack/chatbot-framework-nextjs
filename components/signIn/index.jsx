@@ -20,8 +20,10 @@ import { toast } from "react-toastify";
 export function SignIn() {
   const router = useRouter();
   const [email, setEmail] = React.useState("");
+  const [submitting, setSubmitting] = React.useState(false);
   const [password, setPassword] = React.useState("");
   const handleSubmit = async (e) => {
+    setSubmitting(true);
     e.preventDefault();
     const data = {
       email,
@@ -50,6 +52,7 @@ export function SignIn() {
       console.error(error);
       toast.error(error ||"An error occurred. Please try again later.");
     }
+    setSubmitting(false);
   };
   return (
     <>
@@ -107,7 +110,7 @@ export function SignIn() {
           </CardContent>
           <CardFooter className="flex justify-center md:justify-between">
             {/* <Button variant="outline">Cancel</Button> */}
-            <Button type="submit">Sign In</Button>
+            <Button type="submit">{submitting ? "Submitting..." : "Sign In"}</Button>
           </CardFooter>
         </form>
       </Card>

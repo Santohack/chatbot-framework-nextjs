@@ -22,8 +22,10 @@ export function SignUp() {
   const router = useRouter();
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
+  const [submitting, setSubmitting] = React.useState(false);
   const [password, setPassword] = React.useState("");
   const createUser = async (e) => {
+    setSubmitting(true);
     e.preventDefault();
     const data = {
       name,
@@ -38,13 +40,19 @@ export function SignUp() {
         body: JSON.stringify(data),
       });
       if (res.ok) {
-        toast.success("User created successfully");
+        const { message } = await res.json();
+        toast.success(message);
         router.push("/chatbot");
       }
+      else {
+        const { message } = await res.json();
+        toast.error(message);
+      }
     } catch (error) {
-      toast.error("User creation failed");
+      toast.error(error||"User creation failed");
       console.log(error);
     }
+    setSubmitting(false);
   };
 
   return (
@@ -107,7 +115,7 @@ export function SignUp() {
             </p>
           </CardContent>
           <CardFooter className="flex justify-center md:justify-between">
-            <Button type="submit">Sign Up</Button>
+            <Button type="submit">{submitting ? "Submitting..." : "Sign Up"}</Button>
           </CardFooter>
         </form>
       </Card>

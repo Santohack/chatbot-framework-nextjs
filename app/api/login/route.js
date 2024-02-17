@@ -4,18 +4,29 @@ import bcrypt from "bcrypt";
 import { isEmail } from "validator";
 import jwt from "jsonwebtoken";
 export const POST = async (req) => {
-  const { email, password } = await req.json();
-  if (email.trim().length === 0) {
-    return new Response(JSON.stringify({ message: "Email is required" }), {
-      status: 500,
-    });
-  }
-  if (!isEmail(email)) {
-    return new Response(JSON.stringify({ message: "Email is invalid" }), {
-      status: 500,
-    });
-  }
   try {
+    const { email, password } = await req.json();
+    if (email.trim().length === 0) {
+      return new Response(JSON.stringify({ message: "Email is required" }), {
+        status: 401,
+      });
+    }
+    if (!isEmail(email)) {
+      return new Response(JSON.stringify({ message: "Email is invalid" }), {
+        status: 401,
+      });
+    }
+    if (password.trim().length === 0) {
+      return new Response(JSON.stringify({ message: "Password is required" }), {
+        status: 401,
+      });
+    }
+    if (password.trim().length < 6) {
+      return new Response(
+        JSON.stringify({ message: "Password must be at least 6 characters" }),
+        { status: 401 }
+      );
+    }
     await connectDB();
     const user = await User.findOne({ email }).exec();
 
@@ -29,17 +40,18 @@ export const POST = async (req) => {
           { expiresIn: "7d" }
         );
 
-         
         return new Response(
           JSON.stringify({ token, message: "successfully logged in" }),
           { status: 200 }
         );
       }
-    } else {
-      return new Response(JSON.stringify({ message: "invalid credentials" }), {
-        status: 401,
-      });
     }
+    return new Response(
+      JSON.stringify({ message: "Invalid email or password" }),
+      {
+        status: 401,
+      }
+    );
   } catch (error) {
     console.error(error);
     return new Response(JSON.stringify({ message: "internal server error" }), {
