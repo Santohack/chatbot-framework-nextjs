@@ -72,14 +72,15 @@ export function SignIn() {
               <div className="flex flex-col py-2 space-y-1.5">
                 <Label
                   htmlFor="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+
                 >
                   Password
                 </Label>
                 <Input
                   id="password"
                   type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter your password"
                 />
               </div>
