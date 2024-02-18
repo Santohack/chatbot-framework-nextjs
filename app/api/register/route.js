@@ -3,7 +3,6 @@ import { connectDB } from "@/utils/db";
 import bcrypt from "bcrypt";
 import { isEmail } from "validator";
 
-const saltRounds = 10;
 export const POST = async (req) => {
   try {
     const { name, email, password } = await req.json();
@@ -44,8 +43,8 @@ export const POST = async (req) => {
         }
       );
     }
-
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
     const user = await User.create({
       name,
       email,
@@ -54,7 +53,7 @@ export const POST = async (req) => {
 
     await user.save();
     return new Response(
-      JSON.stringify(user, { message: "User created successfully" }),
+      JSON.stringify({ ...user.toObject(), message: "User created successfully" }),
       { status: 200 }
     );
   } catch (error) {

@@ -40,9 +40,11 @@ export function SignUp() {
         body: JSON.stringify(data),
       });
       if (res.ok) {
-        const { message } = await res.json();
+        const result = await res.json();
+        const {  message,_id } = result;
+      
         toast.success(message);
-        router.push("/chatbot");
+        router.push(`/chatbot/${_id}`);
       }
       else {
         const { message } = await res.json();

@@ -3,6 +3,7 @@ import User from "@/models/userModel";
 import bcrypt from "bcrypt";
 import { isEmail } from "validator";
 import jwt from "jsonwebtoken";
+import { cookies } from "next/headers";
 export const POST = async (req) => {
   try {
     const { email, password } = await req.json();
@@ -39,12 +40,17 @@ export const POST = async (req) => {
           process.env.JWT_SECRET,
           { expiresIn: "7d" }
         );
+      const cookieStore =  cookies().set("token", token);
 
         return new Response(
-          JSON.stringify({ token, message: "successfully logged in" }),
-          { status: 200 }
+          JSON.stringify({ token, message: "successfully logged in",user }),
+          { status: 200, headers: { "Set-Cookie": cookieStore } }
         );
       }
+    }else{
+      return new Response(
+        JSON.stringify({ message: "User not found" }),
+      )
     }
     return new Response(
       JSON.stringify({ message: "Invalid email or password" }),

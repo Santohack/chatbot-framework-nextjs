@@ -33,17 +33,25 @@ export function SignIn() {
     try {
       const res = await fetch("/api/login", {
         method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          // Get the token from localStorage
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
         body: JSON.stringify(data),
       });
       if (res.ok) {
         const result = await res.json();
-        const { token, message } = result;
+        const { token, message,user } = result;
 
         // Set the token in localStorage
-        localStorage.setItem("token", token);
+        if(token){
+          localStorage.setItem("token", token);
+        }
+       
 
         toast.success(message);
-        router.push("/chatbot");
+        router.push(`/chatbot/${user._id}`);
       } else {
         const errorResult = await res.json();
         toast.error(errorResult.message);
@@ -54,6 +62,7 @@ export function SignIn() {
     }
     setSubmitting(false);
   };
+ 
   return (
     <>
       <Head>
