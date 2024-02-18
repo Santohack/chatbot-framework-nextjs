@@ -4,10 +4,17 @@ import { Avatar, Stack } from "@mui/material";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
 import InputBox from "../inputBox";
+import Head from "next/head";
 
 const ChatBoxScreen = () => {
   return (
     <div className="flex  w-[600px] max-md:w-full p-2 flex-col justify-center items-center">
+       <Head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
+      </Head>
       <div className="py-5 max-md:w-full">
         <div className="flex flex-col space-y-7 w-full">
           <div className="float-left max-md:flex-shrink-0">

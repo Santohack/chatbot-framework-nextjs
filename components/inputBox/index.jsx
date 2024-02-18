@@ -1,11 +1,13 @@
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
+import Head from 'next/head';
 
 export default function InputBox() {
   return (
     <Paper
       component="form"
+      
       sx={{
         p: '2px 4px',
         display: 'flex',
@@ -13,15 +15,24 @@ export default function InputBox() {
         alignItems: 'center',
         height: 60,
         maxWidth: 700,
-        width: '100%', // Set width to 100% for responsiveness
+        width: {
+          xs: 382, // Width for extra-small screens (mobile)
+          md: '100%', // Width for medium screens and above (desktop)
+        },
         margin: '0 auto', // Center the component
         borderRadius: '10px', // Remove border radius
       }}
     >
+       <Head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
+      </Head>
       <input
         className='ml-1 flex flex-1 bg-inherit border-none rounded-full outline-none'
         style={{
-          ml: 1,
+          marginLeft: 1,
           flex: 1,
           width: '100%', // Set input width to 100% for responsiveness
         }}
