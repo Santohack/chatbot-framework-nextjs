@@ -1,12 +1,10 @@
-import React from 'react';
+import ChatBoxScreen from "@/components/chatbotScreen";
+import React from "react";
 
 const ChatbotPage = () => {
-  
-
   return (
-    <div>
-      <h1>Welcome to the Chatbot Page,!</h1>
-      
+    <div className=" flex justify-center items-center">
+      <ChatBoxScreen />
     </div>
   );
 };
